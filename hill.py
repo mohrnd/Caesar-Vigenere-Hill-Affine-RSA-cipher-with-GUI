@@ -83,7 +83,7 @@ def decrypt():
 
 # Create GUI
 root = tk.Tk()
-root.title("hill Encryption")
+root.title("Hill Cipher")
 
 # Encryption Frame
 frame_encrypt = tk.Frame(root)

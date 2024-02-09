@@ -4,7 +4,7 @@ From classic to modern encryption techniques, this repository provides a versati
 
 - **Caesar** ✅
 - **Vigenere** ✅
-- **Hill** *coming soon*
+- **Hill** ✅
 - **Affine** *coming soon*
 - **RSA** *coming soon*
 - *and many more !*

@@ -38,8 +38,8 @@ def encrypt(string, E, N):
         letter = string[num_letter]
         if letter in alphdict:
             letter_num_in_dict_enc = alphdict[letter]
-            encrypted_letter = letter_num_in_dict_enc ** E % N
-            encrypted_string_num.append(encrypted_letter % 26) 
+            encrypted_letter = letter_num_in_dict_enc ** E % 26
+            encrypted_string_num.append(encrypted_letter) 
     
     encrypted_string = ''.join([list(alphdict.keys())[list(alphdict.values()).index(num)] for num in encrypted_string_num])
     return encrypted_string
@@ -53,8 +53,8 @@ def decrypt(cipher, D, N):
         letter = cipher[num_letter]
         if letter in alphdict:
             letter_num_in_dict_dec = alphdict[letter]
-            decrypted_letter = letter_num_in_dict_dec ** D % N
-            decrypted_cipher_num.append(decrypted_letter % 26) 
+            decrypted_letter = letter_num_in_dict_dec ** D % 26
+            decrypted_cipher_num.append(decrypted_letter) 
     
     decrypted_cipher = ''.join([list(alphdict.keys())[list(alphdict.values()).index(num)] for num in decrypted_cipher_num])
     return decrypted_cipher

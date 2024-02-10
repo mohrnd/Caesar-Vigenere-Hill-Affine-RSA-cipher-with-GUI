@@ -6,8 +6,8 @@ From classic to modern encryption techniques, this repository provides a versati
 - **Vigenere** ✅
 - **Hill** ✅
 - **Affine** ✅
-- **RSA** *coming soon*
-- *and many more !*
+- **RSA** ✅
+- *and many more COMING SOON!*
 
 ## Usage
 

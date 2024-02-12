@@ -1,4 +1,5 @@
 import tkinter as tk
+import enchant
 
 alphdict = {
     'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6, 'H': 7, 'I': 8, 'J': 9,
@@ -27,10 +28,18 @@ def decipher_string(key):
             if value == num:
                 str_deciphered.append(letter)
                 break
-    text_deciphered_thingy.insert(tk.END, ''.join(str_deciphered) + "\n")
+    text_deciphered_thingy.insert(tk.END, ''.join(str_deciphered) + f" Key: {key}\n")
+    
+    # # this will only detect single ciphered words (you can uncomment the following to use it)
+    # d = enchant.Dict("en_US")
+    # lang_check = d.check(''.join(str_deciphered))
+    # if lang_check == True:
+    #     text_deciphered_thingy.insert(tk.END, ''.join(str_deciphered) + f" Key: {key}\n")
+    # else: 
+    #     pass
 
 def brute_force():
-    for number in range(25):
+    for number in range(0, 26):
         decipher_string(number)
 
 root = tk.Tk()
@@ -59,6 +68,3 @@ text_deciphered_thingy.pack(expand=True, fill=tk.BOTH)
 scrollbar.config(command=text_deciphered_thingy.yview)
 
 root.mainloop()
-
-
-#TODO: ADD A LANGUAGE DETECTOR TO AUTOMATICALLY DETECT WHETHER A TEXT IS GIBBERISH OR IN ENGLISH, AND ONLY PRINT THE TEXT THAT MATTERS

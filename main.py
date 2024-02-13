@@ -12,27 +12,28 @@ def main():
 def cesar():
     script_path = 'cesar.py'
     subprocess.Popen(['python', script_path], shell=True)
+    #call(["python3", "cesar.py"]) if you're on linux uncomment the this line and comment the line above
 
 def vigenere():
     script_path = 'vigenere.py'
     subprocess.Popen(['python', script_path], shell=True)
-
+    #call(["python3", "vigenere.py"])
 def hill():
     script_path = 'hill.py'
     subprocess.Popen(['python', script_path], shell=True)
-
+    #call (["python3", "hill.py"])
 def affine():
     script_path = 'affine.py'
     subprocess.Popen(['python', script_path], shell=True)
-
+    #call (["python3", "affine.py"])
 def RSA():
     script_path = 'RSA.py'
     subprocess.Popen(['python', script_path], shell=True)
-
+    #call (["python3", "RSA.py"])
 def cryptanalyse():
     script_path = 'cryptanalyse_caesar.py'
     subprocess.Popen(['python', script_path], shell=True)
-
+    #call (["python3", "cryptanalyse_caesar.py"])
 
 window = tk.Tk()
 window.title('Cryptography')

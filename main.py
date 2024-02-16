@@ -39,7 +39,7 @@ def cryptanalyse():
 def cryptanalyse_vigenere():
     script_path = 'cryptanalyse_vigenere.py'
     subprocess.Popen(['python', script_path], shell=True)
-    #call (["python3", "cryptanalyse_caesar.py"])
+    #call (["python3", "cryptanalyse_vigenere.py"])
 
 window = tk.Tk()
 window.title('Cryptography')

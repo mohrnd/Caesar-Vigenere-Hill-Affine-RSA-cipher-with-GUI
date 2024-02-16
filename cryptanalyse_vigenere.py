@@ -10,15 +10,20 @@ def Get_key(string, CipheredString):
     key = ''
     string_length = len(string)
     for i in range(string_length):
-        key += chr(((ord(CipheredString[i]) - ord(string[i])) % 26) + ord('A'))
+        key_index = (alphdict[CipheredString[i]] - alphdict[string[i]]) % 26
+        for letter, index in alphdict.items():
+            if index == key_index:
+                key += letter
+                break
     return key
+
 
 def Get_key_string():
     string = Original_string.get().upper()
     CipheredString = Ciphered_string.get().upper()
 
     Key = Get_key(string, CipheredString)
-    text_deciphered_thingy.insert(tk.END, ''.join(Key) + f" Ciphered String: {CipheredString}\n" + f" Original String: {string}\n")
+    text_deciphered_thingy.insert(tk.END, f" The Key: " +''.join(Key) + f" Ciphered String: {CipheredString}\n" + f" Original String: {string}\n")
 
 root = tk.Tk()
 root.title("Vigenere Cipher")

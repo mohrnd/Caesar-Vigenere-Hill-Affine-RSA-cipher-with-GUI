@@ -19,7 +19,7 @@ def encrypt():
         for B in range(n):
             number = int(entry_keys[A][B].get())
             matrix[A][B] = number
-
+    print('matrix', matrix)
     string = entry_plain_text.get().upper()
     string_len = len(string)
 
@@ -38,7 +38,7 @@ def encrypt():
             temp_table.append(intstr[number + R])
         coded_chunk = np.dot(matrix, temp_table) % 26
         result.extend(coded_chunk.flatten())
-
+    ##print + turn into text
     ciphered_text = ''.join([list(alphdict.keys())[list(alphdict.values()).index(num)] for num in result])
     label_ciphered_text.config(text="Encrypted string: " + ciphered_text)
 
@@ -53,10 +53,13 @@ def decrypt():
         for B in range(n):
             number = int(entry_keys_decrypt[A][B].get())
             matrix[A][B] = number
-
+    print('matrix input', matrix)
+    
     determinant = np.linalg.det(matrix)
-    adjoint = np.linalg.inv(matrix) * determinant
-    K_inv = 1 / determinant * adjoint
+    adjoint = [[matrix[1][1], (- matrix[0][1]) % 26],[(- matrix[1][0])% 26, matrix[0][0]]]
+    # adjoint = np.linalg.inv(matrix) 
+    print("matrix",adjoint)
+    K_inv = adjoint 
     int_str_ciphered = []
 
     ciphered_str = entry_ciphered_text.get().upper()
@@ -77,7 +80,9 @@ def decrypt():
             temp_table.append(int_str_ciphered[number + R])
         coded_chunk = np.dot(K_inv, temp_table) % 26
         result.extend(coded_chunk.flatten())
-
+        
+        
+    ##print + turn into text
     decrypted_text = ''.join([list(alphdict.keys())[list(alphdict.values()).index(num)] for num in result])
     label_deciphered_text.config(text="Decrypted string: " + decrypted_text)
 

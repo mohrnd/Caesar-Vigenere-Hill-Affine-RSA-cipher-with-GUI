@@ -9,7 +9,7 @@ def euclidian(m, b):
         elif B3 == 1:
             B3 = PGCD(m,b)
             return  B2   
-        Q = A3 // B3 # div entiere
+        Q = A3 // B3
         T1, T2, T3 = (A1 - Q * B1), (A2 - Q * B2), (A3 - Q * B3)
         A1, A2, A3 = B1, B2, B3
         B1, B2, B3 = T1, T2, T3

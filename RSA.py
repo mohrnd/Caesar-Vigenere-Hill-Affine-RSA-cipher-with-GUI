@@ -2,14 +2,18 @@ import tkinter as tk
 
 ################################
 #P and Q: Prime numbers
-#N: Product
-#T: Totient
+#N: Product P * Q
+#T: Totient  (P - 1) * (Q - 1)
 #E: Public Key:
 #             -must be a prime number
 #             -must be less than T
 #             -must not be a factor of T (T mod D != 0)
 #D: Private Key:
 #             -D * E mod T MUST be equal to 1
+# 
+#  
+#
+#
 ################################
 
 alphdict = {
@@ -17,6 +21,27 @@ alphdict = {
     'K': 10, 'L': 11, 'M': 12, 'N': 13, 'O': 14, 'P': 15, 'Q': 16, 'R': 17, 'S': 18,
     'T': 19, 'U': 20, 'V': 21, 'W': 22, 'X': 23, 'Y': 24, 'Z': 25
 }
+
+def PGCD(a, b):
+    while b:
+        a, b = b, a % b
+    return a
+
+def euclidian(m, b):
+    A1, A2, A3 = 1, 0, m
+    B1, B2, B3 = 0, 1, b
+    while True:
+        if B3 == 0:
+            A3 = PGCD(m,b)
+            print("pas divisible")
+            return A1, A2, A3 
+        elif B3 == 1:
+            B3 = PGCD(m,b)
+            return  B2   
+        Q = A3 // B3
+        T1, T2, T3 = (A1 - Q * B1), (A2 - Q * B2), (A3 - Q * B3)
+        A1, A2, A3 = B1, B2, B3
+        B1, B2, B3 = T1, T2, T3
 
 def is_prime(number):
     if number == 0 or number == 1:
@@ -38,11 +63,12 @@ def encrypt(string, E, N):
         letter = string[num_letter]
         if letter in alphdict:
             letter_num_in_dict_enc = alphdict[letter]
-            encrypted_letter = letter_num_in_dict_enc ** E % 26
-            encrypted_string_num.append(encrypted_letter) 
+            encrypted_letter = pow(letter_num_in_dict_enc, E ) # ,N)
+            encrypted_string_num.append(encrypted_letter % 26) 
     
     encrypted_string = ''.join([list(alphdict.keys())[list(alphdict.values()).index(num)] for num in encrypted_string_num])
     return encrypted_string
+
 
 def decrypt(cipher, D, N):
     cipher = cipher.upper()  
@@ -53,8 +79,8 @@ def decrypt(cipher, D, N):
         letter = cipher[num_letter]
         if letter in alphdict:
             letter_num_in_dict_dec = alphdict[letter]
-            decrypted_letter = letter_num_in_dict_dec ** D % 26
-            decrypted_cipher_num.append(decrypted_letter) 
+            encrypted_letter = pow(letter_num_in_dict_dec, D) # ,N)
+            decrypted_cipher_num.append(encrypted_letter % 26)  
     
     decrypted_cipher = ''.join([list(alphdict.keys())[list(alphdict.values()).index(num)] for num in decrypted_cipher_num])
     return decrypted_cipher
@@ -67,8 +93,9 @@ def Public_Key_gen(P, Q):
         if is_prime(number) and T % number != 0 and number < T:
             E = number
             break
-    return E
     print('E', E)
+    return E
+
 
 def Private_Key_gen(E, P, Q):
     D = None 
@@ -77,8 +104,9 @@ def Private_Key_gen(E, P, Q):
         if number * E % T == 1:
             D = number
             break
-    return D
     print('D', D)
+    return D
+
 root = tk.Tk()
 root.title("RSA Encryption and Decryption")
 
@@ -110,7 +138,7 @@ def generate_keys():
     
     E = Public_Key_gen(p, q)
     D = Private_Key_gen(E, p, q)
-    print(p, q, E, D)
+    print('keygen: ',p, q, E, D)
     label_public_key.config(text="Public Key (E): " + str(E))
     label_private_key.config(text="Private Key (D): " + str(D))
 
@@ -172,7 +200,10 @@ label_decrypted_message.grid(row=2, columnspan=2)
 def decrypt_message():
     message = entry_message_decrypt.get()
     D = int(entry_private_key_decrypt.get())
+    print("decrypt: ",int(entry_p.get()), int(entry_q.get()) )
+    
     N = int(entry_p.get()) * int(entry_q.get())
+    
     
     decrypted_message = decrypt(message, D, N)
     

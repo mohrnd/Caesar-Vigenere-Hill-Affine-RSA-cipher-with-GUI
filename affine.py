@@ -6,7 +6,26 @@ alphdict = {
     'T': 19, 'U': 20, 'V': 21, 'W': 22, 'X': 23, 'Y': 24, 'Z': 25
 }
 
+def euclidian(m, b):
+    A1, A2, A3 = 1, 0, m
+    B1, B2, B3 = 0, 1, b
+    while True:
+        if B3 == 0:
+            A3 = PGCD(m,b)
+            print("pas divisible")
+            return A1, A2, A3 
+        elif B3 == 1:
+            B3 = PGCD(m,b)
+            return  B2   
+        Q = A3 // B3
+        T1, T2, T3 = (A1 - Q * B1), (A2 - Q * B2), (A3 - Q * B3)
+        A1, A2, A3 = B1, B2, B3
+        B1, B2, B3 = T1, T2, T3
 
+def PGCD(a, b):
+    while b:
+        a, b = b, a % b
+    return a
 
 def encrypt(string, a , b):
     string_len = len(string)
@@ -28,7 +47,8 @@ def decrypt(string, a, b):
     for num_letter in range(0, string_len):
         letter = string[num_letter]
         letter_num_in_dict = alphdict[letter]
-        decrypted_letter = pow(a, -1, 26) * (letter_num_in_dict - b) % 26
+        NUM = euclidian(26, a)
+        decrypted_letter = (NUM * (letter_num_in_dict - b)) % 26
         decrypted_string_num.append(decrypted_letter)
     
     decrypted_string = ''.join([list(alphdict.keys())[list(alphdict.values()).index(num)] for num in decrypted_string_num])

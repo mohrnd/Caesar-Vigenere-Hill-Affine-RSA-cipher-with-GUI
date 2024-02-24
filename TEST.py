@@ -58,8 +58,8 @@ def decrypt(private_key, ciphertext):
 
 if __name__ == "__main__":
     # Example usage
-    p = 61
-    q = 53
+    p = 7
+    q = 19
     public_key, private_key = generate_keypair(p, q)
     print("Public Key:", public_key)
     print("Private Key:", private_key)
